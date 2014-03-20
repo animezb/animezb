@@ -97,7 +97,7 @@ func gennzb(ctx *context, params martini.Params, res http.ResponseWriter, req *h
 	if !strings.HasSuffix(nzbName, ".nzb") {
 		nzbName += ".nzb"
 	}
-	if output, err := xml.MarshalIndent(nzbdl, "   ", "   "); err == nil {
+	if output, err := xml.Marshal(nzbdl); err == nil {
 		res.Header().Set("Content-Type", "application/x-nzb")
 		res.Header().Set("Content-Disposition", "attachment; filename=\""+nzbName+"\"")
 		res.WriteHeader(200)
