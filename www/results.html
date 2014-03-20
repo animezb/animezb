@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+
+	<title>{{html .Query}} &mdash; animezb</title>
+
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="css/main.css" rel="stylesheet">
+
+	<link href='//brick.a.ssl.fastly.net/Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<header class="row">
+	<div class="container">
+		<div class="col-md-12">
+
+			<form method="GET" action="/">
+				<div class="pull-right">
+					<button type="submit" class="btn btn-default btn-sm btn-top-search">
+						<i class="fa fa-search"></i>
+						Search
+					</button>
+				</div>
+				<div class="input-group col-xs-5 pull-right">
+					<input type="text" class="form-control  input-sm" name="q" value="{{html .Query}}">
+					<input type="hidden" name="cat" value="{{html .Category}}" id="hero-cat">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown"><span class="search-drop-value">{{.CategoryName}}</span> <span class="caret"></span></button>
+						<ul class="dropdown-menu pull-right search-drop">
+							<li><a data-target="#hero-cat" data-label=".search-drop-value" data-value="anime">Anime</a></li>
+							<li class="divider"></li>
+							<li><a data-target="#hero-cat" data-label=".search-drop-value" data-value="">All</a></li>
+						</ul>
+					</div>
+				</div>
+				<a href="/rss?q={{urlquery .Query}}&amp;cat={{urlquery .Category}}" class="pull-right rss-icon"><i class="fa fa-rss-square fa-2x"></i></a>
+
+			</form>
+			<h1><a href="/">a<span class="title-highlight">n</span>ime<span class="title-highlight">zb</span></a></h1>
+		</div>
+	</div>
+</header>
+<hr>
+{{$pg := .Pagination}}
+{{$o := .}}
+{{with .Results}}
+<div class="row">
+	<div class="container">
+		<table class="table results-table" id="search-results">
+			{{range .}}
+			<tr class="results-top-tr row-{{.UploadId}} row-clickable" data-target="{{.UploadId}}">
+				<td rowspan="2" class="center-text no-pad"><span class="label label-default label-results label-{{.Category}}">{{.Category}}</span></td>
+				<td><a href="/nzb/{{.UploadId}}/{{call $o.UrlPath .Name}}.nzb">{{html .Name}}</a></td>
+				<td rowspan="2" class="center-text no-pad">{{.Age}}</td>
+				<td rowspan="2" class="center-text no-pad"><a class="info-link" href="#{{.UploadId}}" data-target="{{.UploadId}}">Info</a></td>
+			</tr>
+			<tr class="result-info-tr results-bottom-tr row-{{.UploadId}} row-clickable" data-target="{{.UploadId}}">
+				<td><ul class="list-inline result-info-line">
+					<li><strong>Size</strong>: {{.Size}}</li>
+					<li><strong>Date</strong>: {{.Date}}</li>
+					<li><strong>Parts</strong>: <span class="{{.CompletionClass}}">{{.Completion}} ({{.CompletedParts}}/{{.TotalParts}})</span></li>
+					<li><strong>Files</strong>: {{.ExtTypes}}</li>
+				</ul>
+				<ul class="list-inline result-info-line">
+					<li><strong>Poster</strong>: <a href="/?q=poster:%22{{urlquery .Poster}}%22">{{html .Poster}}</a></li>
+					<li><strong>Newsgroups</strong>: {{.FullGroup}}</li>
+				</ul>
+				<div class="collapse" id="{{.UploadId}}"></div>
+				</td>
+			</tr>
+			{{end}}
+		</table>
+	</div>
+</div>
+<div class="row">
+	<div class="container" style="text-align:right">
+		<form method="POST" action="/nzb">
+		{{range .}}
+			<input type="checkbox" name="nzb" value="{{.UploadId}}" id="check-{{.UploadId}}" style="display:none;">
+		{{end}}
+		<button type="submit" class="btn btn-sm btn-primary disabled" id="download-btn">Download</button>
+		</form>
+	</div>
+</div>
+<div class="row">
+	<div class="container" style="text-align:center">
+		<ul class="pagination pagination-sm">
+			<li class="{{if eq $o.Page "1"}}disabled{{end}}"><a href="/?q={{urlquery $o.Query}}&amp;cat={{urlquery $o.Category}}&amp;p={{$o.PrevPage}}">&laquo;</a></li>
+			{{range $pg}}
+			<li class="{{if .Disabled}}disabled{{end}} {{if eq $o.Page .Page}}active{{end}}"><a href="/?q={{urlquery $o.Query}}&amp;cat={{urlquery $o.Category}}&amp;p={{.Page}}">{{.Page}}</a></li>
+			{{end}}
+			<li class="{{if eq $o.Page $o.LastPage}}disabled{{end}}"><a href="/?q={{urlquery $o.Query}}&amp;cat={{urlquery $o.Category}}&amp;p={{$o.NextPage}}">&raquo;</a></li>
+		</ul>
+	</div>
+</div>
+{{else}}
+<div class="row">
+	<div class="container" style="padding-top: 24px;">
+		<div class="alert alert-danger text-center">No results found.</div>
+	</div>
+</div>
+{{end}}
+<div class="home-links">
+	<ul class="list-inline">
+		<li><a href="/faq.html"> FAQ </a></li>
+		<li><a href="http://github.com/animezb" target="_blank"> <i class="fa fa-github"></i>&nbsp;Github </a></li>
+	</ul>
+</div>
+<!--
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+-->
+<script type="text/javascript" src="//cdn.jsdelivr.net/g/jquery@2.1.0,handlebarsjs@1.3.0(handlebars.js),bootstrap@3.1.1"></script>
+
+<script id="upload-info-template" type="text/x-handlebars-template">
+	<table class="table table-bordered table-condensed info-table">
+		<tr>
+			<th>Date</th>
+			<th>Subject</th>
+			<th>Parts</th>
+			<th>Size</th>
+		</tr>
+		{{`{{#each files}}`}}
+		<tr>
+			<td>{{"{{this.date}}"}}</td>
+			<td>{{"{{this.subject}}"}}</td>
+			<td>{{"{{this.parts}}"}}/{{"{{this.length}}"}}</td>
+			<td>{{"{{this.size}}"}}</td>
+		</tr>
+		{{"{{/each}}"}}
+	</table>
+</script>
+<script type="text/javascript">
+	$(function() {
+
+		$('.dropdown-toggle').dropdown();
+		$('.search-drop').data("target");
+		$('.search-drop a').click(function(event) {
+			var tgt = $(event.target).data("target");
+			$(tgt).val($(event.target).data("value"))
+			$($(event.target).data("label")).html($(event.target).html())
+			return true;
+		});
+		$('.disabled a').click(function(event) {
+			return false;
+		})
+
+		var source   = $("#upload-info-template").html();
+		var infoTemplate = Handlebars.compile(source);
+		var selectCount = 0;
+
+		$('.info-link').click(function(event) {
+			var tgt = $(event.target).data("target");
+			if ($(event.target).data("open") !== true) {
+				$.get( "uploads/"+tgt, function( data ) {
+					$("#"+tgt).html(infoTemplate(data));
+					$("#"+tgt).collapse('show');
+					$(event.target).data("open", true)
+				});
+			} else {
+				$("#"+tgt).collapse('hide');
+				$(event.target).data("open", false)
+			}
+			return false;
+		})
+		$(".row-clickable").click(function(event) {
+			if ($(event.target).prop("tagName") != "A") {
+				var tgt = $(event.delegateTarget).data("target");
+				var cv = $("#check-"+tgt).prop("checked");
+				if (cv) {
+					$("#check-"+tgt).prop("checked", false);
+					$(".row-"+tgt).removeClass("highlighted");
+					selectCount--;
+				} else {
+					$("#check-"+tgt).prop("checked", true);
+					$(".row-"+tgt).addClass("highlighted");
+					selectCount++;
+				}
+				if (selectCount > 0) {
+					$("#download-btn").removeClass("disabled");
+					$("#download-btn").html("Download ("+selectCount+")")
+				} else {
+					$("#download-btn").addClass("disabled");
+					$("#download-btn").html("Download")
+				}
+			}
+		})
+
+		$('.collapse').collapse({
+			parent: "#search-results",
+			toggle: false
+		})
+	});
+</script>
+</body>
+</html>

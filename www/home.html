@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+
+	<title>animezb</title>
+
+	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="css/main.css" rel="stylesheet">
+
+
+	<link href='//brick.a.ssl.fastly.net/Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+<div class="hero">
+	<h1>a<span class="title-highlight">n</span>ime<span class="title-highlight">zb</span></h1>
+	<p>Usenet Indexer for Japanese Media</p>
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<form method="GET" action="/">
+			<div class="input-group">
+				<input type="text" class="form-control" name="q">
+				<input type="hidden" name="cat" value="" id="hero-cat">
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="search-drop-value">All</span> <span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right search-drop">
+						<li><a data-target="#hero-cat" data-label=".search-drop-value" data-value="anime">Anime</a></li>
+						<li class="divider"></li>
+						<li><a data-target="#hero-cat" data-label=".search-drop-value" data-value="">All</a></li>
+					</ul>
+				</div>
+			</div>
+			<div style="text-align:center;">
+				<button type="submit" class="btn btn-default btn-search">
+					<i class="fa fa-search"></i>
+					Search
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="home-links">
+	<ul class="list-inline">
+		<li><a href="/faq.html"> FAQ </a></li>
+		<li><a href="http://github.com/animezb" target="_blank"> <i class="fa fa-github"></i>&nbsp;Github </a></li>
+	</ul>
+</div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		$('.dropdown-toggle').dropdown();
+		$('.search-drop').data("target");
+		$('.search-drop a').click(function(event) {
+			tgt = $(event.target).data("target");
+			$(tgt).val($(event.target).data("value"))
+			$($(event.target).data("label")).html($(event.target).html())
+			return true;
+		});
+	});
+</script>
+</body>
+</html>

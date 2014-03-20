@@ -1,0 +1,261 @@
+/*
+ * Author: Carlos Alvarez
+ * URL: http://alvarez.is
+ *
+ * Project Name: Minimal - Free Bootstrap 3 Theme
+ * Version: 1.0
+ * URL: http://blacktie.co
+ */
+
+body {
+	font-family: 'Lato', serif;
+	font-weight: normal;
+	font-size: 16px;
+	color: #fff;
+	background-color: #2c3032;
+
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch;
+}
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+/* Titles */
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+}
+
+
+/* Paragraph & Typographic */
+p {
+	line-height: 28px;
+	margin-bottom: 25px;
+	color: #c2c2c2;
+}
+
+.centered {
+	text-align: center;
+}
+
+/* Links */
+a {
+	color: #61ceeb;
+	word-wrap: break-word;
+
+	-webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-o-transition: color 0.1s ease-in, background 0.1s ease-in;
+	transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+a:hover,
+a:focus {
+	color: #7b7b7b;
+	text-decoration: none;
+	outline: 0;
+}
+
+a:before,
+a:after {
+	-webkit-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-moz-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-ms-transition: color 0.1s ease-in, background 0.1s ease-in;
+	-o-transition: color 0.1s ease-in, background 0.1s ease-in;
+	transition: color 0.1s ease-in, background 0.1s ease-in;
+}
+
+ hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+.hero {
+	margin-top: 200px;
+	text-align: center;
+}
+.hero h1 {
+	font-size: 84px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+}
+.hero p {
+	font-size: 22px;
+	margin-top: -25px;
+	font-weight: 300;
+	margin-bottom:15px;
+}
+.btn-search {
+	margin-top: 20px;
+	margin-bottom: -10px;
+}
+.btn-top-search {
+	margin-left: 8px;
+	margin-right: 4px;
+}
+.home-links {
+	text-align: center;
+	margin-top: 0px;
+}
+.home-links li:first-child:before {
+	content:"";
+}
+.home-links li:before {
+	content:"|";
+	margin-right:10px;
+}
+.title-highlight {
+	color: #61c179;
+}
+
+header {
+	margin-top: 8px;
+}
+
+
+hr {
+	border-top: 1px #191b1d solid;
+	border-bottom: 1px #586064 solid;
+	margin: 0px;
+	height: 0px;
+}
+
+header h1 {
+	text-transform: uppercase;
+	margin-top: 0;
+	margin-left: 8px;
+	font-size: 32px;
+	line-height: 1;
+}
+header h1 a {
+	color: #fff;
+}
+
+header h1 a:hover,
+header h1 a:focus {
+	color: #fff;
+	text-decoration: none;
+	outline: 0;
+}
+
+.rss-icon {
+	color: #f1c40f;
+	margin-right: 10px;
+}
+
+.rss-icon:hover {
+	color: #f39c12;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.results-table {
+	margin-top: 16px;
+}
+
+
+.results-table > tbody > tr:nth-child(4n+1) > td,
+.results-table > tbody > tr:nth-child(4n+2) > td {
+	background-color: #444;
+}
+
+.results-table > tbody > tr:nth-last-child(2) > td:first-child {
+	border-bottom-left-radius: 2px;
+}
+.results-table > tbody > tr:nth-last-child(2) > td:last-child {
+	border-bottom-right-radius: 2px;
+}
+.results-table > tbody > tr:first-child > td:first-child {
+	border-top-left-radius: 2px;
+}
+.results-table > tbody > tr:first-child > td:last-child {
+	border-top-right-radius: 2px;
+}
+
+.results-table > thead > tr > th,
+.results-table > tbody > tr > th,
+.results-table > tfoot > tr > th,
+.results-table > thead > tr > td,
+.results-table > tbody > tr > td,
+.results-table > tfoot > tr > td {
+	border-top-width: 0;
+	border-bottom-width: 1px;
+	vertical-align: middle;
+	padding:0;
+	padding-top: 8px;
+	padding-bottom: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
+	background-color: #222;
+}
+
+.results-table .highlighted td,
+.results-table .highlighted td {
+	background-color: #c0392b !important;
+}
+
+.results-top-tr > td {
+	margin-top: 4px;
+	border-bottom-width: 0 !important;
+}
+
+.results-bottom-tr > td {
+
+	margin-bottom: 4px;
+	padding-top: 0 !important;
+	padding-bottom: 8px !important;
+}
+.result-info-line {
+	font-size:12px;
+	margin-bottom: 0;
+	margin-top: -3px;
+}
+
+.info-table {
+	background-color: transparent !important;
+	font-size:12px;
+	margin-top: 8px;
+	margin-bottom: 0;
+}
+
+.info-table > thead > tr > th,
+.info-table > tbody > tr > th,
+.info-table > tfoot > tr > th,
+.info-table > thead > tr > td,
+.info-table > tbody > tr > td,
+.info-table > tfoot > tr > td {
+	padding: 1px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.no-pad {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.label-results {
+	text-transform: uppercase;
+	font-weight: 900;
+}
+
+.label-anime {
+	background-color: #61c179;
+}
+/*
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+	background-color: #2c3032;
+}
+*/
