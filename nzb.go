@@ -206,7 +206,7 @@ func getSegments(ctx *context, fileId string) []NzbSegment {
 				"_routing": fileId,
 			},
 		},
-		"size": 16384,
+		"size": 65536,
 	}
 	b, err := json.Marshal(query)
 	if err != nil {
