@@ -96,21 +96,23 @@ func genrss(ctx *context, res http.ResponseWriter, req *http.Request) {
 	} else {
 		res.Header().Set("Content-Type", "text/html")
 		sResults, _ := searchBackend(ctx, searchQuery, 0, max, true)
+		protocol := req.URL.Scheme + "://"
+		hostname := req.Host
 		feed := rss{
 			Xmlns:   ATOM_XLMNS,
 			Version: "2.0",
 			Channel: RssChannel{
 				Title:       searchQuery + " &mdash; Animezb",
-				Link:        "http://animezb.com",
+				Link:        protocol + hostname,
 				Description: "Usenet Indexer for Japanese Media",
 				Language:    "en-us",
 			},
 		}
-		feed.Channel.AtomLink.Href = "http://animezb.com" + req.URL.String()
+		feed.Channel.AtomLink.Href = protocol + hostname + req.URL.String()
 		feed.Channel.AtomLink.Rel = "self"
 		feed.Channel.AtomLink.Type = "application/rss+xml"
 		feed.Channel.Items = make([]RssItem, len(sResults))
-		hostname := req.Host
+
 		for idx, res := range sResults {
 			var postCat string
 			switch res.Group {
@@ -122,15 +124,15 @@ func genrss(ctx *context, res http.ResponseWriter, req *http.Request) {
 			pDate, _ := time.Parse(time.UnixDate, res.Date)
 			item := RssItem{
 				Title:       res.Name,
-				Link:        "http://" + hostname + "/nzb/" + res.UploadId,
+				Link:        protocol + hostname + "/nzb/" + res.UploadId,
 				Description: formatRssDesc(res),
 				Category:    postCat,
 				PubDate:     pDate.Format(time.RFC1123Z),
 			}
-			item.Enclosure.Url = "http://" + hostname + "/nzb/" + res.UploadId + "/" + strings.Replace(url.QueryEscape(res.Name), "+", "%20", -1) + ".nzb"
+			item.Enclosure.Url = protocol + hostname + "/nzb/" + res.UploadId + "/" + strings.Replace(url.QueryEscape(res.Name), "+", "%20", -1) + ".nzb"
 			item.Enclosure.Length = res.Bytes
 			item.Enclosure.Type = "application/x-nzb"
-			item.Guid.Guid = "http://" + hostname + "/nzb/" + res.UploadId
+			item.Guid.Guid = protocol + hostname + "/nzb/" + res.UploadId
 			item.Guid.Perma = "false"
 			feed.Channel.Items[idx] = item
 		}
