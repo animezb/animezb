@@ -97,6 +97,13 @@ func genrss(ctx *context, res http.ResponseWriter, req *http.Request) {
 		res.Header().Set("Content-Type", "text/html")
 		sResults, _ := searchBackend(ctx, searchQuery, 0, max, true)
 		protocol := req.URL.Scheme + "://"
+		if protocol == "://" {
+			if useSSL := req.Header.Get("X-SSL"); useSSL == "true" {
+				protocol = "https://"
+			} else {
+				protocol = "http://"
+			}
+		}
 		hostname := req.Host
 		feed := rss{
 			Xmlns:   ATOM_XLMNS,
