@@ -79,9 +79,15 @@ a:after {
 }
 
 .hero {
-	margin-top: 200px;
-	text-align: center;
+   text-align: center;
 }
+
+@media (min-width: 768px) {
+  .hero {
+    margin-top: 200px;
+  }
+}
+
 .hero h1 {
 	font-size: 84px;
 	font-weight: 400;
