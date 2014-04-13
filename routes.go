@@ -15,6 +15,7 @@ func routes(m *martini.ClassicMartini) {
 	m.Post("/nzb", gennzb)
 
 	m.Get("/rss", genrss)
+	m.Get("/rss/", genrss)
 	m.Get("/uploads/:nzbid", getUploadInfo)
 	m.Use(martini.Static("www"))
 
