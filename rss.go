@@ -31,6 +31,10 @@ type RssChannel struct {
 		Rel  string `xml:"rel,attr"`
 		Type string `xml:"type,attr"`
 	} `xml:"atom:link"`
+	NewzNab struct {
+		Offset int `xml:"offset,attr"`
+		Total  int `xml:"total,attr"`
+	} `xml:"newznab:response"`
 	Items []RssItem `xml:"item"`
 }
 
@@ -119,6 +123,8 @@ func genrss(ctx *context, res http.ResponseWriter, req *http.Request) {
 		feed.Channel.AtomLink.Rel = "self"
 		feed.Channel.AtomLink.Type = "application/rss+xml"
 		feed.Channel.Items = make([]RssItem, len(sResults))
+		feed.Channel.NewzNab.Offset = 0
+		feed.Channel.NewzNab.Total = len(sResults)
 
 		for idx, res := range sResults {
 			var postCat string
