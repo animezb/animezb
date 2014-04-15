@@ -11,14 +11,16 @@ import (
 )
 
 const (
-	ATOM_XLMNS = "http://www.w3.org/2005/Atom"
+	ATOM_XMLNS    = "http://www.w3.org/2005/Atom"
+	NEWZNAB_XMLNS = "http://www.newznab.com/DTD/2010/feeds/attributes/"
 )
 
 type rss struct {
-	name    xml.Name   `xml:"rss"`
-	Xmlns   string     `xml:"xmlns:atom,attr"`
-	Version string     `xml:"version,attr"`
-	Channel RssChannel `xml:"channel"`
+	name         xml.Name   `xml:"rss"`
+	XmlnsAtom    string     `xml:"xmlns:atom,attr"`
+	XmlnsNewzNab string     `xml:"xmlns:newznab,attr"`
+	Version      string     `xml:"version,attr"`
+	Channel      RssChannel `xml:"channel"`
 }
 
 type RssChannel struct {
@@ -110,8 +112,9 @@ func genrss(ctx *context, res http.ResponseWriter, req *http.Request) {
 		}
 		hostname := req.Host
 		feed := rss{
-			Xmlns:   ATOM_XLMNS,
-			Version: "2.0",
+			XmlnsAtom:    ATOM_XMLNS,
+			XmlnsNewzNab: NEWZNAB_XMLNS,
+			Version:      "2.0",
 			Channel: RssChannel{
 				Title:       searchQuery + " &mdash; Animezb",
 				Link:        protocol + hostname,
